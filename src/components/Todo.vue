@@ -1,7 +1,16 @@
 <template>
-  <input type="text" name="todo" id="todo" />
-  <ul v-for="todo in todos" :key="todo.id">
-    <li>{{ todo.item }}</li>
+  <input
+    type="text"
+    name="todo"
+    id="todo"
+    @keyup="send"
+    v-model="todoTrack"
+    required
+  />
+  <ul>
+    <li v-for="todo in todos" :key="todo.id">
+      {{ todo.item }}
+    </li>
   </ul>
 </template>
 
@@ -19,7 +28,15 @@ export default {
           item: "Get some beef",
         },
       ],
+      todoTrack: "",
     };
+  },
+  methods: {
+    send: function (e) {
+      if (this.todoTrack && e.key === "Enter") {
+        this.todos.push(this.todoTrack);
+      }
+    },
   },
 };
 </script>
@@ -39,16 +56,15 @@ input {
 }
 
 ul {
+  display: grid;
+  justify-items: start;
   width: 80%;
-  color: #e8e8a6;
-  margin: 10px auto 0 auto;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+  margin: 10px auto;
 }
+
 li {
   color: #aefeff;
   font-size: 15px;
-  border-radius: 5px;
+  margin-bottom: 8px;
 }
 </style>
