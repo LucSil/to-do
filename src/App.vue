@@ -11,10 +11,6 @@ import Todo from "./components/Todo.vue";
 export default {
   name: "App",
   components: { Todo },
-  data() {
-    return {};
-  },
-  methods: {},
 };
 </script>
 
@@ -27,15 +23,16 @@ export default {
   margin-top: 60px;
 }
 #app h1 {
-  color: #c1deae;
+  color: #aefeff;
 }
 .cont {
-  background: #219f94;
+  background: #072227;
   max-width: 400px;
   min-height: 400px;
   margin: 10px auto;
-  padding: 10px 0;
+  padding: 10px;
   border-radius: 20px;
+  box-sizing: border-box;
 }
 body {
   margin: 0;
