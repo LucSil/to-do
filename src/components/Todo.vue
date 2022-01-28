@@ -4,12 +4,12 @@
     name="todo"
     id="todo"
     @keyup="send"
-    v-model="todoTrack"
+    v-model="todoName"
     required
   />
   <ul>
-    <li v-for="todo in todos" :key="todo.id">
-      {{ todo.item }}
+    <li v-for="todo in todos" @click="deleteTodo(todo)" :key="todo.id">
+      {{ todo }}
     </li>
   </ul>
 </template>
@@ -18,24 +18,23 @@
 export default {
   data() {
     return {
-      todos: [
-        {
-          id: 0,
-          item: "Go to the theatre",
-        },
-        {
-          id: 1,
-          item: "Get some beef",
-        },
-      ],
-      todoTrack: "",
+      todos: ["Go to the theatre", "Get some beef"],
+      todoName: "",
     };
   },
   methods: {
     send: function (e) {
-      if (this.todoTrack && e.key === "Enter") {
-        this.todos.push(this.todoTrack);
+      if (this.todoName && e.key === "Enter") {
+        if (!this.todos.includes(this.todoName)) {
+          this.todos.push(this.todoName);
+        }
+        this.todoName = "";
       }
+    },
+    deleteTodo(todo) {
+      this.todos = this.todos.filter((item) => {
+        return item !== todo;
+      });
     },
   },
 };
@@ -65,6 +64,7 @@ ul {
 li {
   color: #aefeff;
   font-size: 15px;
+  cursor: pointer;
   margin-bottom: 8px;
 }
 </style>

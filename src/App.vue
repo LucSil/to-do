@@ -37,5 +37,6 @@ export default {
 body {
   margin: 0;
   background: #eee;
+  cursor: default;
 }
 </style>
