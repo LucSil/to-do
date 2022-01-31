@@ -8,8 +8,9 @@
     required
   />
   <ul>
-    <li v-for="todo in todos" @click="deleteTodo(todo)" :key="todo.id">
-      {{ todo }}
+    <li v-for="(todo, index) in todos" :key="index">
+      {{ todo.item }}
+      <button @click="deleteTodo(index)">Done</button>
     </li>
   </ul>
 </template>
@@ -18,23 +19,32 @@
 export default {
   data() {
     return {
-      todos: ["Go to the theatre", "Get some beef"],
+      todos: [
+        {
+          id: 0,
+          item: "Spy on the kids",
+        },
+        {
+          id: 1,
+          item: "Practice Romanian",
+        },
+      ],
       todoName: "",
     };
   },
   methods: {
     send: function (e) {
       if (this.todoName && e.key === "Enter") {
-        if (!this.todos.includes(this.todoName)) {
-          this.todos.push(this.todoName);
-        }
+        this.todos.push({
+          id: this.todos.length + 1,
+          item: this.todoName,
+        });
         this.todoName = "";
+        console.log(this.todos);
       }
     },
-    deleteTodo(todo) {
-      this.todos = this.todos.filter((item) => {
-        return item !== todo;
-      });
+    deleteTodo(index) {
+      this.todos.splice(index, 1);
     },
   },
 };
@@ -45,7 +55,7 @@ input {
   width: 80%;
   border: none;
   background: none;
-  border-bottom: 2px solid #35858b;
+  border-bottom: 2px solid #9d5353;
   color: #fff2f9;
   font-size: 1.2em;
   border-radius: 2px;
@@ -55,16 +65,26 @@ input {
 }
 
 ul {
-  display: grid;
-  justify-items: start;
   width: 80%;
-  margin: 10px auto;
 }
 
 li {
-  color: #aefeff;
-  font-size: 15px;
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #bf8b67;
+  font-size: 15pt;
   margin-bottom: 8px;
+}
+button {
+  cursor: pointer;
+  background: #dacc96;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: #9d5353;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 1px;
 }
 </style>

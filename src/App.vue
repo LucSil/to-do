@@ -23,10 +23,10 @@ export default {
   margin-top: 60px;
 }
 #app h1 {
-  color: #aefeff;
+  color: #dacc96;
 }
 .cont {
-  background: #072227;
+  background: #632626;
   max-width: 400px;
   min-height: 400px;
   margin: 10px auto;
