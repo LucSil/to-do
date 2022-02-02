@@ -5,12 +5,16 @@
     id="todo"
     @keyup="send"
     v-model="todoName"
+    placeholder="Input to-do"
     required
   />
   <ul>
-    <li v-for="(todo, index) in todos" :key="index">
+    <li class="outer_li" v-for="(todo, index) in todos" :key="index">
       {{ todo.item }}
-      <button @click="deleteTodo(index)">Done</button>
+      <div class="buttons">
+        <button @click="deleteTodo(index)" class="red">❌</button>
+        <button class="green">✔</button>
+      </div>
     </li>
   </ul>
 </template>
@@ -52,10 +56,10 @@ export default {
 
 <style>
 input {
-  width: 80%;
+  width: 90%;
   border: none;
   background: none;
-  border-bottom: 2px solid #9d5353;
+  border-bottom: 2px solid #064663;
   color: #fff2f9;
   font-size: 1.2em;
   border-radius: 2px;
@@ -65,26 +69,32 @@ input {
 }
 
 ul {
-  width: 80%;
+  width: 85%;
 }
 
 li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #bf8b67;
+  color: #ecb365;
+  margin-bottom: 15px;
   font-size: 15pt;
-  margin-bottom: 8px;
 }
+.buttons {
+  margin: 0;
+}
+
 button {
   cursor: pointer;
-  background: #dacc96;
+  background: none;
   border: none;
-  border-radius: 3px;
-  padding: 2px 5px;
-  color: #9d5353;
   font-weight: bold;
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 13px;
+}
+.red {
+  margin-right: 5px;
+}
+.green {
+  color: green;
 }
 </style>

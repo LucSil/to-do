@@ -23,20 +23,18 @@ export default {
   margin-top: 60px;
 }
 #app h1 {
-  color: #dacc96;
+  color: #ecb365;
 }
 .cont {
-  background: #632626;
-  max-width: 400px;
+  max-width: 600px;
   min-height: 400px;
   margin: 10px auto;
   padding: 10px;
-  border-radius: 20px;
   box-sizing: border-box;
 }
 body {
   margin: 0;
-  background: #eee;
+  background: #041c32;
   cursor: default;
 }
 </style>
