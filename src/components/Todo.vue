@@ -21,9 +21,7 @@
 </template>
 
 <script>
-import Complete fre";
 export default {
-  components: { Complete },
   data() {
     return {
       todos: [
