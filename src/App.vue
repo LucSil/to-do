@@ -23,7 +23,7 @@ export default {
   margin-top: 60px;
 }
 #app h1 {
-  color: #ecb365;
+  color: #51c4d3;
 }
 .cont {
   max-width: 600px;
@@ -34,7 +34,7 @@ export default {
 }
 body {
   margin: 0;
-  background: #041c32;
+  background: #d8e3e7;
   cursor: default;
 }
 </style>

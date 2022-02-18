@@ -8,16 +8,15 @@
     placeholder="Input to-do"
     required
   />
-  <ul>
-    <li class="outer_li" v-for="(todo, index) in todos" :key="index">
+  <div class="item" v-for="(todo, index) in todos" :key="index">
+    <p>
       {{ todo.item }}
-      <div class="buttons">
-        <button @click="deleteTodo(index)" class="red">❌</button>
-        <button class="green">✔</button>
-      </div>
-    </li>
-  </ul>
-  <Complete />
+    </p>
+    <div class="buttons">
+      <button @click="deleteTodo(index)" class="red">❌</button>
+      <button class="green">✔</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -41,7 +40,7 @@ export default {
     send: function (e) {
       if (this.todoName && e.key === "Enter") {
         this.todos.push({
-          id: this.todos.length + 1,
+          id: this.todos.length,
           item: this.todoName,
         });
         this.todoName = "";
@@ -57,32 +56,41 @@ export default {
 
 <style>
 input {
-  width: 90%;
+  width: 60%;
   border: none;
   background: none;
-  border-bottom: 2px solid #064663;
-  color: #fff2f9;
+  border-bottom: 2px solid #51c4d3;
+  color: #132c33;
   font-size: 1.2em;
   border-radius: 2px;
   padding: 10px 0 10px 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   outline: none;
 }
-
-ul {
-  width: 85%;
+.item {
+  max-width: 60%;
+  margin: 0 auto 15px auto;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  box-shadow: 2px 3px 5px 1px #51c4d3;
 }
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #ecb365;
-  margin-bottom: 15px;
-  font-size: 15pt;
-}
-.buttons {
+.item p {
+  color: #132c33;
+  font-weight: 600;
+  padding: 10px 5px;
   margin: 0;
+  text-align: left;
+}
+
+.buttons {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 button {
@@ -92,10 +100,9 @@ button {
   font-weight: bold;
   font-size: 13px;
 }
-.red {
-  margin-right: 5px;
-}
+
 .green {
   color: green;
+  font-size: 15px;
 }
 </style>
