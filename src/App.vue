@@ -1,7 +1,7 @@
 <template>
   <div class="cont">
-    <h1>To-dos</h1>
-    <Todo />
+    <h1>To-Do</h1>
+    <Todo @complete="sendComplete" />
   </div>
 </template>
 

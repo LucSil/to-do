@@ -8,47 +8,47 @@
     placeholder="Input to-do"
     required
   />
-  <div class="item" v-for="(todo, index) in todos" :key="index">
+  <div class="item" v-for="todo in todos" :key="todo">
     <p>
-      {{ todo.item }}
+      {{ todo }}
     </p>
     <div class="buttons">
-      <button @click="deleteTodo(index)" class="red">❌</button>
-      <button class="green">✔</button>
+      <button @click="deleteTodo(todo)" class="red">❌</button>
+      <button @click="completeTodo(todo)" class="green">✔</button>
     </div>
   </div>
+
+  <div class="completed"></div>
 </template>
 
 <script>
 export default {
+  name: "Todo",
+  emits: ["complete"],
+
   data() {
     return {
-      todos: [
-        {
-          id: 0,
-          item: "Spy on the kids",
-        },
-        {
-          id: 1,
-          item: "Practice Romanian",
-        },
-      ],
+      completedTodos: [],
+      todos: ["Spy on the kids", "Practice Romanian"],
       todoName: "",
     };
   },
   methods: {
     send: function (e) {
       if (this.todoName && e.key === "Enter") {
-        this.todos.push({
-          id: this.todos.length,
-          item: this.todoName,
-        });
+        this.todos.push(this.todoName);
         this.todoName = "";
         console.log(this.todos);
       }
     },
-    deleteTodo(index) {
-      this.todos.splice(index, 1);
+
+    deleteTodo(todo) {
+      this.todos = this.todos.filter((item) => item !== todo);
+    },
+    completeTodo(todo) {
+      this.completedTodos.push(this.todos.splice(todo, 1));
+      console.log(this.completedTodos);
+      this.$emit("complete", this.completedTodos);
     },
   },
 };
@@ -104,5 +104,11 @@ button {
 .green {
   color: green;
   font-size: 15px;
+}
+
+/* completed component */
+.completed h1 {
+  margin-top: 2em;
+  color: #51c4d3;
 }
 </style>
