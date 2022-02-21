@@ -3,53 +3,65 @@
     type="text"
     name="todo"
     id="todo"
-    @keyup="send"
+    @keyup.enter="send"
     v-model="todoName"
     placeholder="Input to-do"
     required
   />
-  <div class="item" v-for="todo in todos" :key="todo">
-    <p>
-      {{ todo }}
-    </p>
-    <div class="buttons">
-      <button @click="deleteTodo(todo)" class="red">❌</button>
-      <button @click="completeTodo(todo)" class="green">✔</button>
+  <div v-for="(todo, index) in todos" :key="index">
+    <div :class="[todo.done ? 'itemComplete' : 'item']">
+      <p>
+        {{ todo.item }}
+      </p>
+      <div class="buttons">
+        <button @click="deleteTodo(index)" class="red">&times;</button>
+        <button @click="completeTodo(index)" class="green">&check;</button>
+      </div>
     </div>
   </div>
-
-  <div class="completed"></div>
 </template>
 
 <script>
+import { reactive, ref } from "@vue/reactivity";
+
 export default {
   name: "Todo",
-  emits: ["complete"],
+  setup() {
+    const todos = reactive([
+      {
+        item: "Learn Vue.js",
+        id: 1,
+        done: false,
+      },
+      {
+        item: "Create an app",
+        id: 2,
+        done: false,
+      },
+    ]);
 
-  data() {
-    return {
-      completedTodos: [],
-      todos: ["Spy on the kids", "Practice Romanian"],
-      todoName: "",
-    };
-  },
-  methods: {
-    send: function (e) {
-      if (this.todoName && e.key === "Enter") {
-        this.todos.push(this.todoName);
-        this.todoName = "";
-        console.log(this.todos);
+    const todoName = ref("");
+
+    const send = () => {
+      if (todoName.value) {
+        todos.unshift({
+          item: todoName.value,
+          id: todos.length,
+          done: false,
+        });
+        todoName.value = "";
       }
-    },
+    };
 
-    deleteTodo(todo) {
-      this.todos = this.todos.filter((item) => item !== todo);
-    },
-    completeTodo(todo) {
-      this.completedTodos.push(this.todos.splice(todo, 1));
-      console.log(this.completedTodos);
-      this.$emit("complete", this.completedTodos);
-    },
+    const deleteTodo = (index) => {
+      todos.splice(index, 1);
+    };
+
+    const completeTodo = (index) => {
+      todos[index].done = true;
+    };
+
+    return { todos, todoName, send, deleteTodo, completeTodo };
   },
 };
 </script>
@@ -77,8 +89,26 @@ input {
   border-radius: 5px;
   box-shadow: 2px 3px 5px 1px #51c4d3;
 }
+.itemComplete {
+  max-width: 60%;
+  margin: 0 auto 15px auto;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  border: 2px solid transparent;
+  background: #d8e3e7;
+  border-radius: 5px;
+  box-shadow: 2px 3px 5px 1px #4e9f3d;
+}
+.itemComplete p {
+  color: green;
+  font-weight: 600;
+  padding: 10px 5px;
+  margin: 0;
+  text-align: left;
+}
 .item p {
-  color: #132c33;
+  color: crimson;
   font-weight: 600;
   padding: 10px 5px;
   margin: 0;
@@ -101,14 +131,12 @@ button {
   font-size: 13px;
 }
 
+.red {
+  color: red;
+  font-size: 15px;
+}
 .green {
   color: green;
   font-size: 15px;
-}
-
-/* completed component */
-.completed h1 {
-  margin-top: 2em;
-  color: #51c4d3;
 }
 </style>
