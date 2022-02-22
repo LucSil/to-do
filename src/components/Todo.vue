@@ -15,7 +15,9 @@
       </p>
       <div class="buttons">
         <button @click="deleteTodo(index)" class="red">&times;</button>
-        <button @click="completeTodo(index)" class="green">&check;</button>
+        <button @click="completeTodo(index)" class="green" v-if="!todo.done">
+          &check;
+        </button>
       </div>
     </div>
   </div>
